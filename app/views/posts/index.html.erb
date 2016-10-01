@@ -1,0 +1,32 @@
+<h1>Welcome <%= @user.name %>!</h1>
+
+<div class="w3-padding">
+<form class="w3-form" action="/posts" method="post">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<textarea class="w3-input" name="content" placeholder="Post something witty here"></textarea>
+	<input class="w3-btn w3-hover-blue-grey w3-margin w3-right" type="submit" value="Idea!">
+</form>
+
+</div>
+	<% @posts.each do | post | %>
+		<div >
+		<h4 class="dis_posts"><a href="/users/<%=post.user.id%>"><%= post.user.name %></a> says:</h4>
+		<div class="dis_cont"><%= post.content %></div>
+		<% if post.user.id == current_user.id %>
+		<form class="w3-show-inline-block" action="/posts/<%=post.id%>" method="post">
+			<input type="hidden" name="_method" value="delete">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input class="w3-btn w3-hover-blue-grey w3-margin" type="submit" value="Delete">
+		</form>
+		<% end %>
+		<form class="w3-show-inline-block" action="/likes" method="post">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type="hidden" name="post_id" value="<%=post.id%>">
+			<input class="w3-btn w3-hover-blue-grey w3-margin" type="submit" value="Like">
+		</form>
+		<a href="/posts/<%=post.id%>"><%=post.likes.count%> people</a> like this
+		</div>
+	<% end %>
+<div>
+	
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BrightIdeasBelt</title>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+   <div class="w3-margin">
+      <% if current_user %>
+         <form class="w3-center w3-margin" action='/logout' method='post'>
+         <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+         <input type='hidden' name='_method' value='delete'>
+         <input class="w3-btn w3-light-grey w3-hover w3-right" type='submit' value='Log Out'>
+         </form>
+         <a class="w3-btn w3-light-grey w3-hover w3-right" href="/posts">Bright Ideas</a>
+      <% end %>
+
+   <div class="flash">
+      <% if flash.key? :errors %>
+      <% flash[:errors].each do |e| %>
+         <p class="flash_mess"><%= e %></p>
+      <% end %>
+      <% end %>
+   </div>
+   
+   <%= yield %>
+   
+   </div>
+
+  </body>
+</html>

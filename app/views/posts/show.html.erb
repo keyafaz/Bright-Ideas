@@ -1,0 +1,18 @@
+<h4 class="dis_posts"><a href="/users/<%=@post.user.id%>"><%= @post.user.name %></a> says:</h4>
+<div class="dis_cont"><%= @post.content %></div>
+
+<div class="post_liked">
+	<h5>People who liked this post:</h5>
+	<table class="w3-table">
+		<tr>
+			<th>Alias</th>
+			<th>Name</th>
+		</tr>
+		<% @likes.each do | like | %>
+			<tr>
+			<td><%=like.user.name%></td>
+			<td><%=like.user.alias%></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
